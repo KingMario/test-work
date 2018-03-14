@@ -40,6 +40,4 @@ describe('describe', () => {
     });
     expect(bar).toBe(0);
   });
-  beforeEach(() => {});
-  beforeAll(() => {});
 });

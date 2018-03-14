@@ -27,13 +27,13 @@ describe('test TestComponent', () => {
     component = fixture.componentInstance;
   }));
 
-  it('test routed', async(() => {
+  it('should test routed', async(() => {
     fixture.whenStable().then(() => {
       expect(component.name).toBe('jime');
     });
   }));
 
-  it('test fakeAsync', fakeAsync(function() {
+  it('should test fakeAsync', fakeAsync(function() {
     const nameService = TestBed.get(NameService);
     spyOn(component, 'clickBtn').and.callThrough();
     spyOn(nameService, 'getNameList').and.callThrough();
@@ -46,7 +46,7 @@ describe('test TestComponent', () => {
     discardPeriodicTasks();
   }));
 
-  it('test done', function(done) {
+  it('should test done', function(done) {
     component.clickBtn();
     setTimeout(() => {
       expect(component.firstName).toBe('jime');
@@ -54,7 +54,7 @@ describe('test TestComponent', () => {
     }, 0);
   });
 
-  it('test async', async(function() {
+  it('should test async', async(function() {
     const service = TestBed.get(NameService);
     spyOn(service, 'getNameList').and.callThrough();
     component.clickBtn();
