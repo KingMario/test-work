@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 import { APP_BASE_HREF } from '@angular/common';
 import { Router } from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -15,7 +16,10 @@ describe('AppComponent', () => {
       providers: [
         { provide: Router,      useValue: routerSpy }
       ],
-      imports: [RouterTestingModule]
+      imports: [
+        RouterTestingModule,
+        HttpClientTestingModule
+      ]
     }).compileComponents();
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.debugElement.componentInstance;

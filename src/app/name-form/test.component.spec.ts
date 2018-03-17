@@ -7,6 +7,7 @@ import { NameService } from '../name.service';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../shared/route-stub';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('test TestComponent', () => {
   let fixture: ComponentFixture<TestComponent>;
@@ -21,6 +22,9 @@ describe('test TestComponent', () => {
       providers: [
         NameService,
         { provide: ActivatedRoute, useValue: route },
+      ],
+      imports: [
+        HttpClientModule
       ]
     }).compileComponents();
     fixture = TestBed.createComponent(TestComponent);

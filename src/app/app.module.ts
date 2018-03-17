@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { TestComponent } from './name-form/test.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ModuleWithProviders } from '@angular/core';
@@ -20,6 +21,7 @@ export const ROUTES: Routes = [
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [NameService],
