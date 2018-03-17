@@ -9,12 +9,12 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let app: AppComponent;
-  const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+  // const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent],
       providers: [
-        { provide: Router,      useValue: routerSpy }
+        // { provide: Router,      useValue: routerSpy }
       ],
       imports: [
         RouterTestingModule,
@@ -32,14 +32,14 @@ describe('AppComponent', () => {
   it('should test routing', fakeAsync(() => {
     tick();
     const router = TestBed.get(Router);
-    // spyOn(router, 'navigate').and.callFake((args) => {
-    //   expect(args[0]).toBe('/test');
-    //   expect(args[1]['name']).toBe('jime');
-    // });
+    spyOn(router, 'navigate').and.callFake((args) => {
+      expect(args[0]).toBe('/test');
+      expect(args[1]['name']).toBe('jime');
+    });
     app.routeToTest();
-    const spy = router.navigate as jasmine.Spy;
-    const navArgs = spy.calls.mostRecent().args[0];
-    expect(navArgs[0]).toBe('/test');
-    expect(navArgs[1]['name']).toBe('jime');
+    // // const spy = router.navigate as jasmine.Spy;
+    // const navArgs = spy.calls.mostRecent().args[0];
+    // expect(navArgs[0]).toBe('/test');
+    // expect(navArgs[1]['name']).toBe('jime');
   }));
 });

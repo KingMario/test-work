@@ -26,9 +26,7 @@ export class TestComponent {
     });
   }
   clickBtn() {
-    let i = 0;
     setInterval(() => {
-      console.log(i++);
       this.nameList = this.nameService.getNameList();
     }, this.delayTime);
     // setTimeout(() => { this.firstName = "jime"; }, 0);
