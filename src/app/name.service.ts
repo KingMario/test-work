@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs/observable/of';
 import { HttpClient } from '@angular/common/http';
+import { Http } from '@angular/http';
 
 @Injectable()
 export class NameService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpClient: HttpClient, private http: Http) { }
 
   list: string[] = ['jime', 'lily', 'lucy', 'luck'];
 
@@ -13,7 +14,11 @@ export class NameService {
     return of(this.list);
   }
 
-  getUrl() {
+  getData() {
+    return this.httpClient.get('https://angular.io/guide/testing');
+  }
+
+  getDataByHttp() {
     return this.http.get('https://angular.io/guide/testing');
   }
 }

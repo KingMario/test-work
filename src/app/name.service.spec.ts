@@ -1,24 +1,43 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { NameService } from './name.service';
+import { HttpModule, XHRBackend, Response, ResponseOptions, Headers, Http } from '@angular/http';
+import { MockBackend, MockConnection } from '@angular/http/testing';
 
 describe(`NameService`, () => {
   let injector: TestBed;
-  let httpMock: HttpTestingController;
+  let httpClientMock: HttpTestingController;
   let nameService: NameService;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [NameService]
+      imports: [HttpClientTestingModule, HttpModule],
+      providers: [
+        NameService,
+        { provide: XHRBackend, useClass: MockBackend }
+      ]
     });
     injector = getTestBed();
-    httpMock = injector.get(HttpTestingController);
+    httpClientMock = injector.get(HttpTestingController);
     nameService = injector.get(NameService);
   });
 
   it('should test getUrl', () => {
-    nameService.getUrl().subscribe();
-    const req = httpMock.expectOne('https://angular.io/guide/testing');
+    nameService.getData().subscribe();
+    const req = httpClientMock.expectOne('https://angular.io/guide/testing');
     expect(req.request.method).toBe('GET');
+  });
+
+  it('should test get', () => {
+    const httpMock: MockBackend = TestBed.get(XHRBackend);
+    httpMock.connections.subscribe((connection: MockConnection) => {
+      expect(connection.request.url).toBe('https://angular.io/guide/testing');
+      connection.mockRespond(new Response(new ResponseOptions({
+        body: 'succes',
+        headers: new Headers({sessionId: 'test succes'})
+      })));
+    });
+    nameService.getDataByHttp().subscribe((res) => {
+      expect(res.text()).toBe('succes');
+    });
   });
 });

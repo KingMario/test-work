@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../shared/route-stub';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 describe('test TestComponent', () => {
   let fixture: ComponentFixture<TestComponent>;
@@ -24,6 +25,7 @@ describe('test TestComponent', () => {
         { provide: ActivatedRoute, useValue: route },
       ],
       imports: [
+        HttpModule,
         HttpClientModule
       ]
     }).compileComponents();
@@ -50,14 +52,6 @@ describe('test TestComponent', () => {
     discardPeriodicTasks();
   }));
 
-  it('should test done', function(done) {
-    component.clickBtn();
-    setTimeout(() => {
-      expect(component.firstName).toBe('jime');
-      done();
-    }, 0);
-  });
-
   it('should test async', async(function() {
     const service = TestBed.get(NameService);
     spyOn(service, 'getNameList').and.callThrough();
@@ -69,6 +63,14 @@ describe('test TestComponent', () => {
       expect(component.firstName).toBe('jime');
     });
   }));
+
+  it('should test done', function(done) {
+    component.clickBtn();
+    setTimeout(() => {
+      expect(component.firstName).toBe('jime');
+      done();
+    }, 0);
+  });
 
   it('should test child component', fakeAsync(() => {
     fixture.detectChanges();
@@ -88,14 +90,12 @@ describe('test TestComponent', () => {
     const nameService: NameService = TestBed.get(NameService);
     // const nameService = fixture.debugElement.injector.get(NameService);
     nameService.getNameList().subscribe((data) => {
-      console.log('test service');
       expect(data.length).toBe(4);
     });
   }));
 
   it('should test service by inject', inject([NameService], (nameService: NameService) => {
     nameService.getNameList().subscribe((data) => {
-      console.log('test service');
       expect(data.length).toBe(4);
     });
   }));
