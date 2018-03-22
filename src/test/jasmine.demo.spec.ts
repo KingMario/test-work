@@ -20,7 +20,7 @@ describe('describe', () => {
   });
 
   it('should test assert', () => {
-    bar = 10;
+    foo.setBar(10);
     expect(bar).toBe(10);
   });
 

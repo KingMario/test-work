@@ -76,6 +76,12 @@ describe('test TestComponent', () => {
     const nameFormComponent = nameFormDebugEle.injector.get(NameFormComponent);
     expect(component.name).toBe('jime');
     expect(nameFormComponent.name).toBe('jime');
+    const input: any = nameFormDebugEle.query(By.css('input')).nativeElement;
+    input.value = 'jime1';
+    input.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+    expect(component.name).toBe('jime1');
+    expect(nameFormComponent.name).toBe('jime1');
   }));
 
   it('should test service', fakeAsync(() => {
